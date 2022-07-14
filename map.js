@@ -11,11 +11,18 @@ function showPosition(position) {
         center: [lat, long],
         zoom: 15,
     })
+
+    const pin = L.icon({
+        iconUrl: 'myPin.png',
+        iconSize: [38, 38],
+        iconAnchor: [19, 1]
+    });
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(leafMap)
     // display marker by the user's cord
-    L.marker([lat, long]).addTo(leafMap).bindPopup("My location")
+    L.marker([lat, long], { icon: pin }).addTo(leafMap).bindPopup("My location")
     // shows the proximity of 2500 of users location if the user wants
     L.control.locate().addTo(leafMap)
 
@@ -46,7 +53,7 @@ function showPosition(position) {
 
         getFoursquare(business)
     })
-    
+
     document.getElementById("clearSelection").addEventListener("click", () =>
         layerGroup.clearLayers());
 }
